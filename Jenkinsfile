@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'docker build -t matt/node .'
             }
         }
         stage('Test') {
