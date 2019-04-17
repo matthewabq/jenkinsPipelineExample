@@ -3,7 +3,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'matt/node'
         TARGET_CONTAINER = "${IMAGE_NAME}"
-        BUILD_TAG = "1"
+        BUILD_TAG = "latest"
     }
 
     stages {
