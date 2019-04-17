@@ -15,6 +15,8 @@ pipeline {
         stage('twistlock scan') {
             steps {
                 sh 'docker images | grep matt | grep node'
+                sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
+                sh 'docker images | grep matt | grep node'
                 twistlockScan ca: '',
                         cert: '',
                         compliancePolicy: 'warn',
