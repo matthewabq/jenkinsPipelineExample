@@ -1,6 +1,6 @@
 FROM node:8-alpine
 LABEL maintainer="Matthew Barker, matthew@twistlock.com"
-LABEL newbuild="true"
+LABEL newbuild="really"
 
 RUN npm install -g tough-cookie@2.3.1
 
