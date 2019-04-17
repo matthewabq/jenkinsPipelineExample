@@ -14,7 +14,7 @@ pipeline {
         }
         stage('twistlock scan') {
             steps {
-                sh 'docker images'
+                sh 'docker images | grep matt | grep node'
                 twistlockScan ca: '',
                         cert: '',
                         compliancePolicy: 'warn',
