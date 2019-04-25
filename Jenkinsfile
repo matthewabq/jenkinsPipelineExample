@@ -39,7 +39,7 @@ pipeline {
                     }
                     catch (exc) {
                         echo 'Scan failed!'
-                        currentBuild.result = 'UNSTABLE'
+                        currentBuild.result = 'FAILED'
                     }
                 }
             }
