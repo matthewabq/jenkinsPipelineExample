@@ -20,7 +20,7 @@ pipeline {
                 sh 'docker images | grep matt | grep node'
                 script {
                     try {
-                        currentBuild.result = 'SUCCESS' ) {
+                        currentBuild.result = 'SUCCESS'
                         echo 'Running tests...'
                         twistlockScan ca: '',
                             cert: '',
