@@ -64,11 +64,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    if (currentBuild.result == 'SUCCESS') {
+                    if (currentBuild.result == 'SUCCESS')
                         echo 'Deploying....'
-                    }
                     else
-                        echo 'Deployment skipped, some problem occurred!'
+                        echo 'Deployment skipped, problem occurred, possibly Twistlock scan found CVEs or compliance issues!'
                 }
             }
         }
