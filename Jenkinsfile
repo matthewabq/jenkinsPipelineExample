@@ -60,12 +60,14 @@ pipeline {
             }
         }
             
-        if (currentBuild.result == 'SUCCESS') {
-            stage('Deploy') {
-                steps {
-                    echo 'Deploying....'
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    if (currentBuild.result == 'SUCCESS') {
+                        echo 'Deploying....'
+                    }
                 }
             }
-        }
     }
 }
