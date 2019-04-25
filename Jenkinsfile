@@ -34,10 +34,9 @@ pipeline {
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                     }
-                }
              } catch (e) {
-                 currentBuild.result = "FAILURE"
-                 println("catch exeption. currentBuild.result: ${currentBuild.result}")
+                  currentBuild.result = "FAILURE"
+                  println("catch exeption. currentBuild.result: ${currentBuild.result}")
              }
         }
         stage('twistlock publish') {
