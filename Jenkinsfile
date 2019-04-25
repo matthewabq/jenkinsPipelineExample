@@ -7,19 +7,18 @@ pipeline {
     }
 
     stages {
-        try {
         stage('Build') {
             steps {
                 echo "docker build -t $IMAGE_NAME:$BUILD_TAG ."
             }
         }
-        } catch (Exception ex) {}
         stage('twistlock scan') {
             steps {
                 sh 'docker images | grep matt | grep node'
                 sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
                 sh 'docker images | grep matt | grep node'
-                twistlockScan ca: '',
+                try {
+                   twistlockScan ca: '',
                         cert: '',
                         policy: 'high',
                         compliancePolicy: 'warn',
@@ -34,6 +33,11 @@ pipeline {
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
+                }
+                catch (e) {
+                    currentBuild.result = "UNSTABLE"
+                    println("catch exeption - currentBuild.result: ${currentBuild.result}")
+                }
             }
         }
         stage('twistlock publish') {
