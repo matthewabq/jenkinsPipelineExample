@@ -17,8 +17,10 @@ pipeline {
                 sh 'docker images | grep matt | grep node'
                 sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
                 sh 'docker images | grep matt | grep node'
-                twistlockScan ca: '',
+                try {
+                   twistlockScan ca: '',
                         cert: '',
+                        policy: 'high',
                         compliancePolicy: 'warn',
                         containerized: false,
                         dockerAddress: 'unix:///var/run/docker.sock',
@@ -26,12 +28,13 @@ pipeline {
                         ignoreImageBuildTime: true,
                         key: '',
                         logLevel: 'true',
-                        policy: 'warn',
                         requirePackageUpdate: false,
                         timeout: 10,
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
+                }
+                catch (Exception ex) {}
             }
         }
         stage('twistlock publish') {
@@ -41,8 +44,7 @@ pipeline {
                         dockerAddress: 'unix:///var/run/docker.sock',
                         ignoreImageBuildTime: true,
                         key: '',
-                        logLevel: 'true',
-                        policy: 'high',
+                        logLevel: 'true',                        
                         timeout: 10,
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
