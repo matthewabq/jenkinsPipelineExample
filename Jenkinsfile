@@ -35,8 +35,8 @@ pipeline {
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                  }
-                 catch (e) {
-                     currentBuild.result = "FAILURE"
+                 catch (Exception e) {
+                     currentBuild.result = "UNSTABLE"
                      println("catch exeption. currentBuild.result: ${currentBuild.result}")
                  }
             }
