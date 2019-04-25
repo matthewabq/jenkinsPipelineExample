@@ -20,6 +20,7 @@ pipeline {
                 sh 'docker images | grep matt | grep node'
                 script {
                     try {
+                        currentBuild.result = 'SUCCESS' ) {
                         echo 'Running tests...'
                         twistlockScan ca: '',
                             cert: '',
@@ -39,7 +40,7 @@ pipeline {
                     }
                     catch (exc) {
                         echo 'Scan failed!'
-                        currentBuild.result = 'FAILED'
+                        currentBuild.result = 'UNSTABLE'
                     }
                 }
             }
@@ -58,10 +59,12 @@ pipeline {
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
             }
         }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+            
+        if (currentBuild.result == 'SUCCESS') {
+            stage('Deploy') {
+                steps {
+                    echo 'Deploying....'
+                }
             }
         }
     }
