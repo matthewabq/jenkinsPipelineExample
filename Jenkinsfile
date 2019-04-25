@@ -19,7 +19,7 @@ pipeline {
                 sh 'docker images | grep matt | grep node'
                 twistlockScan ca: '',
                         cert: '',
-                        compliancePolicy: 'critical',
+                        compliancePolicy: 'warn',
                         containerized: false,
                         dockerAddress: 'unix:///var/run/docker.sock',
                         gracePeriodDays: 0,
