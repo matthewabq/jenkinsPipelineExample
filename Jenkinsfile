@@ -14,6 +14,8 @@ pipeline {
         }
         stage('twistlock scan') {
             steps {
+                while ...
+                do
                 sh 'echo try this'
                 sh 'docker images | grep matt | grep node'
                 sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
@@ -33,6 +35,7 @@ pipeline {
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}" || error=true
+                done
             }
         }
         stage('twistlock publish') {
