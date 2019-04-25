@@ -13,9 +13,9 @@ pipeline {
             }
         }
         stage('twistlock scan') {
-            println("default: currentBuild.result: ${currentBuild.result}")
-            try{
-                steps {
+            steps {
+                sh 'echo try this'
+                try{
                     sh 'docker images | grep matt | grep node'
                     sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
                     sh 'docker images | grep matt | grep node'
@@ -35,11 +35,11 @@ pipeline {
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                  }
-             }
-             catch (e) {
-                  currentBuild.result = "FAILURE"
-                  println("catch exeption. currentBuild.result: ${currentBuild.result}")
-             }
+                 catch (e) {
+                     currentBuild.result = "FAILURE"
+                     println("catch exeption. currentBuild.result: ${currentBuild.result}")
+                 }
+            }
         }
         stage('twistlock publish') {
             steps {
