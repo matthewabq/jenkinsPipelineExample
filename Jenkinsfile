@@ -42,6 +42,7 @@ pipeline {
                         ignoreImageBuildTime: true,
                         key: '',
                         logLevel: 'true',
+                        policy: 'high',
                         timeout: 10,
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
