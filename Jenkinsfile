@@ -32,7 +32,7 @@ pipeline {
                         timeout: 10,
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
-                        image: "${TARGET_CONTAINER}:${BUILD_TAG}" || currentBuild.result = 'UNSTABLE'
+                        image: "${TARGET_CONTAINER}:${BUILD_TAG}" || currentBuild.result = 'SUCCESS'
             }
         }
         stage('twistlock publish') {
