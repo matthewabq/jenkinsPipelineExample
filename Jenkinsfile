@@ -14,8 +14,6 @@ pipeline {
         }
         stage('twistlock scan') {
             steps {
-                while ...
-                do
                 sh 'echo try this'
                 sh 'docker images | grep matt | grep node'
                 sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
@@ -34,8 +32,7 @@ pipeline {
                         timeout: 10,
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
-                        image: "${TARGET_CONTAINER}:${BUILD_TAG}" || error=true
-                done
+                        image: "${TARGET_CONTAINER}:${BUILD_TAG}" || currentBuild.result = 'UNSTABLE'
             }
         }
         stage('twistlock publish') {
