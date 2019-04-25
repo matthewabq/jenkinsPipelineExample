@@ -13,6 +13,7 @@ pipeline {
             }
         }
         stage('twistlock scan') {
+            println("default: currentBuild.result: ${currentBuild.result}")
             try{
                 steps {
                     sh 'docker images | grep matt | grep node'
