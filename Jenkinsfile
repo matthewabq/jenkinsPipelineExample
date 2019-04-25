@@ -67,7 +67,7 @@ pipeline {
                     if (currentBuild.result == 'SUCCESS') {
                         echo 'Deploying....'
                     }
-                    else {
+                    else
                         echo 'Deployment skipped, some problem occurred!"
                 }
             }
