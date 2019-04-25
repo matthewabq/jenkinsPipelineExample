@@ -18,21 +18,30 @@ pipeline {
                 sh 'docker images | grep matt | grep node'
                 sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
                 sh 'docker images | grep matt | grep node'
-                twistlockScan ca: '',
-                        cert: '',
-                        policy: 'warn',
-                        compliancePolicy: 'warn',
-                        containerized: false,
-                        dockerAddress: 'unix:///var/run/docker.sock',
-                        gracePeriodDays: 0,
-                        ignoreImageBuildTime: true,
-                        key: '',
-                        logLevel: 'true',
-                        requirePackageUpdate: false,
-                        timeout: 10,
-                        repository: "${TARGET_CONTAINER}",
-                        tag: "${BUILD_TAG}",
-                        image: "${TARGET_CONTAINER}:${BUILD_TAG}" || currentBuild.result = 'SUCCESS'
+                script {
+                    try {
+                        echo 'Running tests...'
+                        twistlockScan ca: '',
+                            cert: '',
+                            policy: 'warn',
+                            compliancePolicy: 'warn',
+                            containerized: false,
+                            dockerAddress: 'unix:///var/run/docker.sock',
+                            gracePeriodDays: 0,
+                            ignoreImageBuildTime: true,
+                            key: '',
+                            logLevel: 'true',
+                            requirePackageUpdate: false,
+                            timeout: 10,
+                            repository: "${TARGET_CONTAINER}",
+                            tag: "${BUILD_TAG}",
+                            image: "${TARGET_CONTAINER}:${BUILD_TAG}"
+                    }
+                    catch (exc) {
+                        echo 'Scan failed!'
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
             }
         }
         stage('twistlock publish') {
