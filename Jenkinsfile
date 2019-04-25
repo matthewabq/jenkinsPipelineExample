@@ -68,7 +68,7 @@ pipeline {
                         echo 'Deploying....'
                     }
                     else
-                        echo 'Deployment skipped, some problem occurred!"
+                        echo 'Deployment skipped, some problem occurred!'
                 }
             }
         }
