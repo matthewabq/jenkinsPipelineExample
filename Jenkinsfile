@@ -39,7 +39,7 @@ pipeline {
                 twistlockPublish ca: '',
                         cert: '',
                         dockerAddress: 'unix:///var/run/docker.sock',
-                        // ignoreImageBuildTime: true,
+                        ignoreImageBuildTime: true,
                         key: '',
                         logLevel: 'true',
                         timeout: 10,
