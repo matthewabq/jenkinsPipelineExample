@@ -15,11 +15,10 @@ pipeline {
         stage('twistlock scan') {
             steps {
                 sh 'echo try this'
-                try{
-                    sh 'docker images | grep matt | grep node'
-                    sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
-                    sh 'docker images | grep matt | grep node'
-                    twistlockScan ca: '',
+                sh 'docker images | grep matt | grep node'
+                sh "docker build -t $IMAGE_NAME:$BUILD_TAG ."
+                sh 'docker images | grep matt | grep node'
+                def status = twistlockScan ca: '',
                         cert: '',
                         policy: 'high',
                         compliancePolicy: 'warn',
@@ -34,11 +33,10 @@ pipeline {
                         repository: "${TARGET_CONTAINER}",
                         tag: "${BUILD_TAG}",
                         image: "${TARGET_CONTAINER}:${BUILD_TAG}"
-                 }
-                 catch (Exception e) {
-                     currentBuild.result = "UNSTABLE"
-                     println("catch exeption. currentBuild.result: ${currentBuild.result}")
-                 }
+                if (status != 0) {
+                        // Use SUCCESS FAILURE or ABORTED
+                        currentBuild.result = "UNSTABLE"
+                }
             }
         }
         stage('twistlock publish') {
