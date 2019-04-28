@@ -1,6 +1,8 @@
 FROM node:9-alpine
 LABEL maintainer="Matthew Barker, matthew@twistlock.com"
-LABEL newbuild="1"
+LABEL newbuild="3"
+
+RUN apk update && apk upgrade
 
 RUN npm install -g tough-cookie
 
