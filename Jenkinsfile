@@ -1,6 +1,5 @@
-import hudson.AbortException
-
 pipeline {
+    import hudson.AbortException
     agent any
     environment {
         IMAGE_NAME = 'matt/node'
