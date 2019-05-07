@@ -1,3 +1,6 @@
+package org.jenkinsci.plugins.workflow.support.steps.build;
+import hudson.AbortException;
+
 pipeline {
     agent any
     environment {
