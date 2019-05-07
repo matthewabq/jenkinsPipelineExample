@@ -43,11 +43,11 @@ pipeline {
                             image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                     }
                     catch(hudson.AbortException e) {
-                        echo echo "abort exception caught:\n ${e}"
+                        echo "abort exception caught:\n ${e}"
                         currentBuild.result = 'UNSTABLE'
                     }
                     catch(e) {
-                        echo echo "exception caught:\n ${e}"
+                        echo "exception caught:\n ${e}"
                         currentBuild.result = 'UNSTABLE'
                     }
                 }
