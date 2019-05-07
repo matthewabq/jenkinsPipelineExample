@@ -1,5 +1,4 @@
 pipeline {
-    import hudson.AbortException
     agent any
     environment {
         IMAGE_NAME = 'matt/node'
@@ -39,13 +38,18 @@ pipeline {
                             tag: "${BUILD_TAG}",
                             image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                     }
-                    catch (hudson.AbortException e) {
-                        echo echo "abort exception thrown:\n ${e}"
-                    }
-                    catch (err) {
-                        echo "Exception thrown:\n ${err}"
-                        echo 'Scan failed with error ' + err.toString()
+                    catch(err) {
+                        echo echo "abort exception thrown:\n ${err}"
                         currentBuild.result = 'UNSTABLE'
+                        def user = err.getCauses()[0].getUser()
+                        echo "user cause is " + user.toString
+
+                        if (user.toString == 'SYSTEM') {  // if it's system it's a timeout
+                            didTimeout = true
+                            echo "Build timed out at approval step"
+                        } else if (userInput == false) {  // if not and input is false it's the user
+                            echo "Build aborted by: [${user}]"
+                        }
                     }
                 }
             }
