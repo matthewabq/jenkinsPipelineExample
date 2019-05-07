@@ -28,8 +28,8 @@ pipeline {
                         echo 'Running tests...'
                         twistlockScan ca: '',
                             cert: '',
-                            policy: 'high',
-                            compliancePolicy: 'high',
+                            policy: 'warn',
+                            compliancePolicy: 'warn',
                             containerized: false,
                             dockerAddress: 'unix:///var/run/docker.sock',
                             gracePeriodDays: 0,
