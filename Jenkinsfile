@@ -1,5 +1,3 @@
-package org.jenkinsci.plugins.workflow.support.steps.build;
-import hudson.AbortException;
 
 pipeline {
     agent any
@@ -41,12 +39,12 @@ pipeline {
                             tag: "${BUILD_TAG}",
                             image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                     }
-                    catch(AbortException e) {
+                    catch(hudson.AbortException e) {
                         echo echo "abort exception caught:\n ${e}"
                         currentBuild.result = 'UNSTABLE'
                     }
-                    catch(Throwable e) {
-                        echo echo "throwable exception caught:\n ${e}"
+                    catch(e) {
+                        echo echo "exception caught:\n ${e}"
                         currentBuild.result = 'UNSTABLE'
                     }
                 }
