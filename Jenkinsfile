@@ -1,6 +1,6 @@
 
 import jenkins.model.*
-jenkins = Jenkins.instance
+import hudson.AbortException
 
 pipeline {
     agent any
