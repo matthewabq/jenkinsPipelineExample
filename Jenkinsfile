@@ -38,6 +38,9 @@ pipeline {
                             tag: "${BUILD_TAG}",
                             image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                     }
+                    catch (hudson.AbortException e) {
+                        echo echo "abort exception thrown:\n ${e}"
+                    }
                     catch (err) {
                         echo "Exception thrown:\n ${err}"
                         echo 'Scan failed with error ' + err.toString()
