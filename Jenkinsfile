@@ -1,3 +1,5 @@
+import hudson.AbortException
+
 pipeline {
     agent any
     environment {
