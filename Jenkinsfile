@@ -41,15 +41,8 @@ pipeline {
                     catch(err) {
                         echo echo "abort exception thrown:\n ${err}"
                         currentBuild.result = 'UNSTABLE'
-                        def user = err.getCauses()[0].getUser()
-                        echo "user cause is " + user.toString
-
-                        if (user.toString == 'SYSTEM') {  // if it's system it's a timeout
-                            didTimeout = true
-                            echo "Build timed out at approval step"
-                        } else if (userInput == false) {  // if not and input is false it's the user
-                            echo "Build aborted by: [${user}]"
-                        }
+                        def causes = err.getCauses()
+                        echo "causes: " + causes.toString
                     }
                 }
             }
