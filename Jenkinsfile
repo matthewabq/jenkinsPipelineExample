@@ -38,11 +38,13 @@ pipeline {
                             tag: "${BUILD_TAG}",
                             image: "${TARGET_CONTAINER}:${BUILD_TAG}"
                     }
-                    catch(err) {
-                        echo echo "abort exception thrown:\n ${err}"
+                    catch(AbortException e) {
+                        echo echo "abort exception caught:\n ${e}"
                         currentBuild.result = 'UNSTABLE'
-                        def causes = err.getCauses()
-                        echo "causes: " + causes.toString
+                    }
+                    catch(Throwable e) {
+                        echo echo "throwable exception caught:\n ${e}"
+                        currentBuild.result = 'UNSTABLE'
                     }
                 }
             }
